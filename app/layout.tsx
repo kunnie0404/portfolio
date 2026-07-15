@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { SpotlightCursor } from "@/components/ui/spotlight-cursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "许晓琨 - UI 设计师作品集",
-  description: "许晓琨的个人作品集，聚焦 App、Web、PC、智能穿戴与 AI 产品 UI 设计。",
+  title: "许晓琨｜UI 设计作品集",
+  description: "许晓琨的个人 UI 设计作品集，聚焦 App、Web、智能穿戴与动态视觉设计。",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -17,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        {children}
+        <SpotlightCursor />
+      </body>
     </html>
   );
 }
