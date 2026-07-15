@@ -48,3 +48,6 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# generated from reference-dino-preview.html before Next.js builds
+/public/portfolio-home.html

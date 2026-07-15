@@ -249,6 +249,8 @@
         width: 100%;
         height: auto;
         margin: 0;
+        content-visibility: auto;
+        contain-intrinsic-size: auto 1000px;
       }
 
       .motion-gallery-view {
@@ -320,6 +322,8 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 50%;
         background: #111;
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 200px;
       }
 
       .motion-card img {
@@ -357,6 +361,8 @@
         margin: 0;
         display: grid;
         place-items: center;
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 200px;
       }
 
       .watch-face-card img {
@@ -377,6 +383,8 @@
         max-width: none;
         height: auto;
         margin: 0;
+        content-visibility: auto;
+        contain-intrinsic-size: auto 1000px;
       }
 
       .error {
@@ -522,10 +530,11 @@
             const index = String(number).padStart(2, "0");
 
             item.className = "motion-card";
-            image.src = `public/portfolio-assets/other/motion-${index}.gif`;
+            image.src = `public/portfolio-assets/other/motion-${index}.webp`;
             image.alt = `动效作品 ${number}`;
             image.draggable = false;
-            image.loading = number <= 3 ? "eager" : "lazy";
+            image.loading = number <= 2 ? "eager" : "lazy";
+            image.decoding = "async";
             item.append(image);
             track.appendChild(item);
           }
@@ -537,9 +546,10 @@
               const index = String(number).padStart(2, "0");
 
               item.className = "watch-face-card";
-              image.src = `public/portfolio-assets/other/${folder}/${prefix}-${index}.png`;
+              image.src = `public/portfolio-assets/other/${folder}/${prefix}-${index}.webp`;
               image.alt = `${label} ${number}`;
               image.loading = "lazy";
+              image.decoding = "async";
               image.draggable = false;
               item.append(image);
               target.appendChild(item);
@@ -553,18 +563,20 @@
             const image = document.createElement("img");
             const index = String(number).padStart(2, "0");
 
-            image.src = `public/portfolio-assets/other/showcase/showcase-${index}.png`;
+            image.src = `public/portfolio-assets/other/showcase/showcase-${index}.webp`;
             image.alt = `其他视觉作品 ${number}`;
             image.loading = "lazy";
+            image.decoding = "async";
             showcaseGallery.appendChild(image);
           }
 
         } else {
           for (let number = project.start; number <= project.end; number += 1) {
             const image = document.createElement("img");
-            image.src = `public/portfolio-assets/projects/${slug}/${project.prefix}_${number}.png`;
+            image.src = `public/portfolio-assets/projects/${slug}/${project.prefix}_${number}.webp`;
             image.alt = `${project.name} 项目展示 ${number - project.start + 1}`;
             image.loading = number === project.start ? "eager" : "lazy";
+            image.decoding = "async";
             if (number === project.start) image.fetchPriority = "high";
             gallery.appendChild(image);
           }

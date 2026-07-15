@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 :root {
   --paper: #efefed;
   --ink: #090909;
@@ -760,12 +758,24 @@ img {
   line-height: 0;
 }
 
+.optimized-picture {
+  display: block;
+  width: 100%;
+}
+
 .project-detail-gallery img {
   display: block;
   width: 100%;
   max-width: none;
   height: auto;
   margin: 0;
+}
+
+.project-detail-gallery picture,
+.watch-face-card,
+.other-showcase-gallery picture {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
 }
 
 .other-page {
@@ -840,6 +850,8 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   background: #111;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 200px;
 }
 
 .motion-card img {

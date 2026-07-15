@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { OptimizedPicture } from "@/components/ui/optimized-picture";
 import {
   isProjectSlug,
   projectDetails,
@@ -64,7 +65,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <div className="project-detail-gallery" aria-label={`${project.name} 项目图片`}>
         {project.images.map((image, index) => (
-          <img
+          <OptimizedPicture
             key={image}
             src={image}
             alt={`${project.name} 项目展示 ${index + 1}`}

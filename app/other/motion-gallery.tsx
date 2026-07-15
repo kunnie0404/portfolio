@@ -1,6 +1,8 @@
+import { OptimizedPicture } from "@/components/ui/optimized-picture";
+
 const motionImages = Array.from(
   { length: 13 },
-  (_, index) => `/portfolio-assets/other/motion-${String(index + 1).padStart(2, "0")}.gif`,
+  (_, index) => `/portfolio-assets/other/motion-${String(index + 1).padStart(2, "0")}.webp`,
 );
 
 const classicImages = Array.from(
@@ -33,7 +35,7 @@ function WatchFaceSection({
       <div className="watch-face-grid">
         {images.map((src, index) => (
           <figure className="watch-face-card" key={src}>
-            <img
+            <OptimizedPicture
               src={src}
               alt={`${title} ${index + 1}`}
               loading="lazy"
@@ -57,7 +59,8 @@ export function MotionGallery() {
                 src={src}
                 alt={`动效作品 ${index + 1}`}
                 draggable={false}
-                loading={index < 6 ? "eager" : "lazy"}
+                loading={index < 2 ? "eager" : "lazy"}
+                decoding="async"
               />
             </figure>
           ))}
@@ -75,7 +78,7 @@ export function MotionGallery() {
       />
       <div className="other-showcase-gallery" aria-label="其他视觉作品展示">
         {showcaseImages.map((src, index) => (
-          <img
+          <OptimizedPicture
             key={src}
             src={src}
             alt={`其他视觉作品 ${index + 1}`}

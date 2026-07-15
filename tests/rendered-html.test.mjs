@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
-import test from "node:test";
+import test, { after, before } from "node:test";
 
 const projects = {
   echos: { name: "Echos", prefix: "echos", start: 1, end: 12 },
@@ -10,25 +11,54 @@ const projects = {
   neon: { name: "NEON", prefix: "neon", start: 3, end: 8 },
 };
 
-async function render(pathname) {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
-  const { default: worker } = await import(workerUrl.href);
+const port = 43173;
+const baseUrl = `http://127.0.0.1:${port}`;
+let server;
 
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
+before(async () => {
+  server = spawn(
+    process.execPath,
+    ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)],
     {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
+      cwd: new URL("..", import.meta.url),
+      stdio: ["ignore", "pipe", "pipe"],
     },
   );
+
+  let output = "";
+  server.stdout.on("data", (chunk) => {
+    output += chunk;
+  });
+  server.stderr.on("data", (chunk) => {
+    output += chunk;
+  });
+
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    if (server.exitCode !== null) {
+      throw new Error(`Next.js exited before tests started.\n${output}`);
+    }
+
+    try {
+      const response = await fetch(baseUrl, { redirect: "manual" });
+      if (response.status < 500) return;
+    } catch {
+      // The server is still starting.
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+
+  throw new Error(`Timed out waiting for Next.js.\n${output}`);
+});
+
+after(() => {
+  server?.kill();
+});
+
+async function render(pathname) {
+  return fetch(new URL(pathname, baseUrl), {
+    headers: { accept: "text/html" },
+  });
 }
 
 test("home page links only the five projects with detail assets", async () => {
@@ -58,10 +88,14 @@ for (const [slug, project] of Object.entries(projects)) {
     let lastIndex = -1;
 
     for (let number = project.start; number <= project.end; number += 1) {
-      const file = `/portfolio-assets/projects/${slug}/${project.prefix}_${number}.png`;
-      await access(new URL(`../public${file}`, import.meta.url));
-      const currentIndex = html.indexOf(file);
-      assert.ok(currentIndex > lastIndex, `${file} should be in numeric order`);
+      const stem = `/portfolio-assets/projects/${slug}/${project.prefix}_${number}`;
+      await Promise.all(
+        ["avif", "webp"].map((extension) =>
+          access(new URL(`../public${stem}.${extension}`, import.meta.url)),
+        ),
+      );
+      const currentIndex = html.indexOf(`${stem}.webp`);
+      assert.ok(currentIndex > lastIndex, `${stem} should be in numeric order`);
       lastIndex = currentIndex;
     }
   });
@@ -77,15 +111,18 @@ test("obsolete reference route is removed", async () => {
   assert.equal(response.status, 404);
 });
 
-test("other page renders all motion GIFs in numeric order", async () => {
+test("other page renders all animated WebP files in numeric order", async () => {
   const response = await render("/other");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, />Dynamic Effect</);
+  assert.match(html, /type=["']image\/avif["']/);
+  assert.match(html, /type=["']image\/webp["']/);
+  assert.doesNotMatch(html, /(?:src|srcset)=["'][^"']+\.(?:png|gif)["']/i);
 
   let lastIndex = -1;
   for (let number = 1; number <= 13; number += 1) {
-    const file = `/portfolio-assets/other/motion-${String(number).padStart(2, "0")}.gif`;
+    const file = `/portfolio-assets/other/motion-${String(number).padStart(2, "0")}.webp`;
     await access(new URL(`../public${file}`, import.meta.url));
     const currentIndex = html.indexOf(file);
     assert.ok(currentIndex > lastIndex, `${file} should be in numeric order`);
@@ -98,20 +135,28 @@ test("other page renders all motion GIFs in numeric order", async () => {
   ]) {
     let previousIndex = -1;
     for (let number = 1; number <= count; number += 1) {
-      const file = `/portfolio-assets/other/${folder}/${prefix}-${String(number).padStart(2, "0")}.png`;
-      await access(new URL(`../public${file}`, import.meta.url));
-      const currentIndex = html.indexOf(file);
-      assert.ok(currentIndex > previousIndex, `${file} should be in numeric order`);
+      const stem = `/portfolio-assets/other/${folder}/${prefix}-${String(number).padStart(2, "0")}`;
+      await Promise.all(
+        ["avif", "webp"].map((extension) =>
+          access(new URL(`../public${stem}.${extension}`, import.meta.url)),
+        ),
+      );
+      const currentIndex = html.indexOf(`${stem}.webp`);
+      assert.ok(currentIndex > previousIndex, `${stem} should be in numeric order`);
       previousIndex = currentIndex;
     }
   }
 
   let previousShowcaseIndex = -1;
   for (let number = 1; number <= 9; number += 1) {
-    const file = `/portfolio-assets/other/showcase/showcase-${String(number).padStart(2, "0")}.png`;
-    await access(new URL(`../public${file}`, import.meta.url));
-    const currentIndex = html.indexOf(file);
-    assert.ok(currentIndex > previousShowcaseIndex, `${file} should be in numeric order`);
+    const stem = `/portfolio-assets/other/showcase/showcase-${String(number).padStart(2, "0")}`;
+    await Promise.all(
+      ["avif", "webp"].map((extension) =>
+        access(new URL(`../public${stem}.${extension}`, import.meta.url)),
+      ),
+    );
+    const currentIndex = html.indexOf(`${stem}.webp`);
+    assert.ok(currentIndex > previousShowcaseIndex, `${stem} should be in numeric order`);
     previousShowcaseIndex = currentIndex;
   }
 });
@@ -176,7 +221,7 @@ test("offline detail preview includes every project and local image path", async
 
   assert.match(
     html,
-    /public\/portfolio-assets\/projects\/\$\{slug\}\/\$\{project\.prefix\}_\$\{number\}\.png/,
+    /public\/portfolio-assets\/projects\/\$\{slug\}\/\$\{project\.prefix\}_\$\{number\}\.webp/,
   );
   assert.match(html, /reference-dino-preview\.html#portfolio-collection/);
 });
@@ -188,7 +233,7 @@ test("offline detail preview includes the Other motion gallery", async () => {
   );
 
   assert.match(html, /other:\s*\{\s*name:\s*["']Dynamic Effect["']/);
-  assert.match(html, /public\/portfolio-assets\/other\/motion-\$\{index\}\.gif/);
+  assert.match(html, /public\/portfolio-assets\/other\/motion-\$\{index\}\.webp/);
   assert.match(html, /class=["']motion-scroller["']/);
   assert.match(html, />Classic Watch Faces</);
   assert.match(html, />Digital Watch Faces</);
@@ -196,7 +241,7 @@ test("offline detail preview includes the Other motion gallery", async () => {
   assert.match(html, /digitalTrack,\s*["']digital["'],\s*["']digital["'],\s*26/);
   assert.match(html, /\.watch-face-card img\s*\{[^}]*object-fit:\s*contain/s);
   assert.match(html, /\.other-showcase-gallery img\s*\{[^}]*display:\s*block[^}]*width:\s*100%[^}]*height:\s*auto[^}]*margin:\s*0/s);
-  assert.match(html, /public\/portfolio-assets\/other\/showcase\/showcase-\$\{index\}\.png/);
+  assert.match(html, /public\/portfolio-assets\/other\/showcase\/showcase-\$\{index\}\.webp/);
   assert.match(html, /grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)/);
   assert.match(html, /grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
   assert.match(html, /\.motion-card\s*\{[^}]*border-radius:\s*50%/s);
