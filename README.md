@@ -17,6 +17,14 @@ pnpm dev
 首页源文件是 `reference-dino-preview.html`。开发和生产构建前，`prepare:home`
 脚本会将它转换为 Next.js 可直接提供的静态首页，并修正 `public/` 资源路径。
 
+图片使用 AVIF + WebP 响应式格式，动画使用 WebP。新增 PNG/JPEG/GIF 源素材后运行：
+
+```bash
+pnpm optimize:images
+```
+
+脚本会校验输出尺寸和动画时长，再用优化文件替换源素材。
+
 ## Validation
 
 ```bash

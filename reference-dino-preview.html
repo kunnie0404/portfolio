@@ -1328,7 +1328,11 @@
         <div class="about-layout">
           <aside class="about-profile" aria-label="个人资料">
             <div class="about-photo">
-              <img src="public/portfolio-assets/about-photo.png" alt="许晓琨个人照片" />
+              <picture>
+                <source srcset="public/portfolio-assets/about-photo.avif" type="image/avif" />
+                <source srcset="public/portfolio-assets/about-photo.webp" type="image/webp" />
+                <img src="public/portfolio-assets/about-photo.webp" alt="许晓琨个人照片" loading="lazy" decoding="async" />
+              </picture>
             </div>
             <div>
               <h2 class="about-name" id="about-title">许晓琨</h2>
@@ -1389,7 +1393,11 @@
       </section>
 
       <section id="portfolio-collection" class="collection">
-        <img class="collection-wing" src="public/portfolio-assets/hero.png" alt="" />
+        <picture>
+          <source srcset="public/portfolio-assets/hero.avif" type="image/avif" />
+          <source srcset="public/portfolio-assets/hero.webp" type="image/webp" />
+          <img class="collection-wing" src="public/portfolio-assets/hero.webp" alt="" loading="lazy" decoding="async" />
+        </picture>
         <div class="collection-head">
           <h2>
             Leave complexity to design,
@@ -1405,7 +1413,11 @@
         <div class="collection-panel">
           <div class="collection-visual">
             <div class="collection-stars">***</div>
-            <img id="chapterImage" class="chapter-image" src="public/portfolio-assets/cover-da-ring.png" alt="App-Da Ring" />
+            <picture style="display: contents">
+              <source id="chapterAvifSource" srcset="public/portfolio-assets/cover-da-ring.avif" type="image/avif" />
+              <source id="chapterWebpSource" srcset="public/portfolio-assets/cover-da-ring.webp" type="image/webp" />
+              <img id="chapterImage" class="chapter-image" src="public/portfolio-assets/cover-da-ring.webp" alt="App-Da Ring" decoding="async" />
+            </picture>
             <div class="chapter-counter"><span id="chapterNumber">03</span><span>/</span><span>06</span></div>
           </div>
 
@@ -1453,15 +1465,17 @@
       const menuToggle = document.querySelector(".menu-toggle");
       const mobilePanel = document.querySelector(".mobile-panel");
       const chapterData = [
-        { image: "public/portfolio-assets/cover-echos.png", alt: "Web-Echos AI Website Builder" },
-        { image: "public/portfolio-assets/cover-neon.png", alt: "Watch-Neon" },
-        { image: "public/portfolio-assets/cover-da-ring.png", alt: "App-Da Ring" },
-        { image: "public/portfolio-assets/cover-luxury.png", alt: "Watch-Luxury" },
-        { image: "public/portfolio-assets/cover-mo-glass.png", alt: "APP-Mo Glass" },
-        { image: "public/portfolio-assets/cover-watch.png", alt: "Other" },
+        { image: "public/portfolio-assets/cover-echos", alt: "Web-Echos AI Website Builder" },
+        { image: "public/portfolio-assets/cover-neon", alt: "Watch-Neon" },
+        { image: "public/portfolio-assets/cover-da-ring", alt: "App-Da Ring" },
+        { image: "public/portfolio-assets/cover-luxury", alt: "Watch-Luxury" },
+        { image: "public/portfolio-assets/cover-mo-glass", alt: "APP-Mo Glass" },
+        { image: "public/portfolio-assets/cover-watch", alt: "Other" },
       ];
       const chapterButtons = Array.from(document.querySelectorAll("[data-chapter]"));
       const chapterImage = document.querySelector("#chapterImage");
+      const chapterAvifSource = document.querySelector("#chapterAvifSource");
+      const chapterWebpSource = document.querySelector("#chapterWebpSource");
       const chapterNumber = document.querySelector("#chapterNumber");
       const chapterLabel = document.querySelector("#chapterLabel");
       const projectLinks = Array.from(document.querySelectorAll("[data-project-route]"));
@@ -1483,7 +1497,9 @@
         chapterImage.style.filter = "blur(6px)";
 
         window.setTimeout(() => {
-          chapterImage.src = chapterData[index].image;
+          chapterAvifSource.srcset = `${chapterData[index].image}.avif`;
+          chapterWebpSource.srcset = `${chapterData[index].image}.webp`;
+          chapterImage.src = `${chapterData[index].image}.webp`;
           chapterImage.alt = chapterData[index].alt;
           chapterNumber.textContent = String(index + 1).padStart(2, "0");
           chapterLabel.textContent = `Chapter ${String(index + 1).padStart(2, "0")}`;
