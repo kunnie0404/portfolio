@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
-import test from "node:test";
+import test, { after, before } from "node:test";
 
 const projects = {
   echos: { name: "Echos", prefix: "echos", start: 1, end: 12 },
@@ -10,25 +11,54 @@ const projects = {
   neon: { name: "NEON", prefix: "neon", start: 3, end: 8 },
 };
 
-async function render(pathname) {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
-  const { default: worker } = await import(workerUrl.href);
+const port = 43173;
+const baseUrl = `http://127.0.0.1:${port}`;
+let server;
 
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
+before(async () => {
+  server = spawn(
+    process.execPath,
+    ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)],
     {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
+      cwd: new URL("..", import.meta.url),
+      stdio: ["ignore", "pipe", "pipe"],
     },
   );
+
+  let output = "";
+  server.stdout.on("data", (chunk) => {
+    output += chunk;
+  });
+  server.stderr.on("data", (chunk) => {
+    output += chunk;
+  });
+
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    if (server.exitCode !== null) {
+      throw new Error(`Next.js exited before tests started.\n${output}`);
+    }
+
+    try {
+      const response = await fetch(baseUrl, { redirect: "manual" });
+      if (response.status < 500) return;
+    } catch {
+      // The server is still starting.
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+
+  throw new Error(`Timed out waiting for Next.js.\n${output}`);
+});
+
+after(() => {
+  server?.kill();
+});
+
+async function render(pathname) {
+  return fetch(new URL(pathname, baseUrl), {
+    headers: { accept: "text/html" },
+  });
 }
 
 test("home page links only the five projects with detail assets", async () => {
