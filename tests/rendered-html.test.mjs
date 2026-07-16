@@ -294,6 +294,17 @@ test("Work is browsed before About on the production home page", async () => {
   assert.match(preview, /\.about-page\s*\{[^}]*order:\s*2/s);
 });
 
+test("Contact navigation targets the footer after the About section", async () => {
+  const preview = await readFile(
+    new URL("../reference-dino-preview.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(preview, /<footer class=["']collection-footer["'] id=["']contact["']/);
+  assert.doesNotMatch(preview, /class=["']availability["'][^>]*id=["']contact["']/);
+  assert.ok(preview.indexOf('id="about"') < preview.indexOf('id="contact"'));
+});
+
 test("catalog and detail navigation use layered liquid glass styling", async () => {
   const [catalog, offlineDetail, globalCss] = await Promise.all([
     readFile(new URL("../reference-dino-preview.html", import.meta.url), "utf8"),
@@ -310,6 +321,8 @@ test("catalog and detail navigation use layered liquid glass styling", async () 
   assert.match(catalog, /\.nav-link::before\s*\{[^}]*background:\s*#fff/s);
   assert.match(catalog, /\.nav-link:hover,[\s\S]*?color:\s*#000/);
   assert.match(catalog, /border-radius:\s*999px/);
+  assert.match(globalCss, /\.project-detail-nav-links a > span\s*\{[^}]*z-index:\s*1[^}]*color:\s*inherit/s);
+  assert.match(globalCss, /\.project-detail-nav-links a:hover > span,[\s\S]*?color:\s*#000/);
 });
 
 test("detail navigation keeps its links and uses the supplied return icon", async () => {
