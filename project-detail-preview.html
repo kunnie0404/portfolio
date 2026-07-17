@@ -88,12 +88,51 @@
         height: 100%;
         padding: 3px;
         gap: 3px;
+        overflow: hidden;
+        isolation: isolate;
+        background: rgba(8, 8, 8, 0.16);
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.28),
+          0 0 18px rgba(255, 255, 255, 0.08),
+          inset 3px 3px 1px -3px rgba(255, 255, 255, 0.72),
+          inset -3px -3px 1px -3px rgba(255, 255, 255, 0.42),
+          inset 1px 1px 1px rgba(255, 255, 255, 0.18),
+          inset -1px -1px 1px rgba(0, 0, 0, 0.34),
+          inset 0 0 12px rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(24px) saturate(185%) contrast(108%);
+        -webkit-backdrop-filter: blur(24px) saturate(185%) contrast(108%);
+      }
+
+      .liquid-glass-nav-backdrop,
+      .liquid-glass-nav-surface {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+      }
+
+      .liquid-glass-nav-backdrop {
+        z-index: 0;
         background:
-          radial-gradient(circle at 14% 0%, rgba(255, 255, 255, 0.24), transparent 40%),
-          linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.045) 48%, rgba(0, 0, 0, 0.16)),
-          rgba(8, 8, 8, 0.52);
-        backdrop-filter: blur(28px) saturate(175%) contrast(105%);
-        -webkit-backdrop-filter: blur(28px) saturate(175%) contrast(105%);
+          radial-gradient(circle at 18% -40%, rgba(255, 255, 255, 0.34), transparent 46%),
+          linear-gradient(112deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.025) 46%, rgba(255, 255, 255, 0.1));
+        filter: url("#project-nav-liquid-glass");
+        opacity: 0.92;
+      }
+
+      .liquid-glass-nav-surface {
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.018) 52%, rgba(0, 0, 0, 0.08)),
+          rgba(15, 15, 15, 0.12);
+      }
+
+      .liquid-glass-nav-filter {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
       }
 
       .detail-nav-links a {
@@ -111,6 +150,7 @@
         font-weight: 500;
         text-transform: uppercase;
         font-weight: 600;
+        z-index: 2;
         transition: color 280ms cubic-bezier(0.16, 1, 0.3, 1);
       }
 
@@ -468,10 +508,22 @@
         <img class="return-icon" src="public/portfolio-assets/return.svg" alt="" aria-hidden="true">
       </a>
       <nav class="detail-nav-links" aria-label="项目页面导航">
+        <span class="liquid-glass-nav-backdrop" aria-hidden="true"></span>
+        <span class="liquid-glass-nav-surface" aria-hidden="true"></span>
         <a href="reference-dino-preview.html#works"><span>Home</span></a>
         <a href="reference-dino-preview.html#portfolio-collection"><span>Work</span></a>
         <a href="reference-dino-preview.html#about"><span>About</span></a>
         <a href="reference-dino-preview.html#about"><span>Contact</span></a>
+        <svg class="liquid-glass-nav-filter" aria-hidden="true">
+          <defs>
+            <filter id="project-nav-liquid-glass" x="-20%" y="-50%" width="140%" height="200%" color-interpolation-filters="sRGB">
+              <feTurbulence type="fractalNoise" baseFrequency="0.018 0.12" numOctaves="1" seed="7" result="turbulence"></feTurbulence>
+              <feGaussianBlur in="turbulence" stdDeviation="1.6" result="blurredNoise"></feGaussianBlur>
+              <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="42" xChannelSelector="R" yChannelSelector="B" result="displaced"></feDisplacementMap>
+              <feGaussianBlur in="displaced" stdDeviation="0.65"></feGaussianBlur>
+            </filter>
+          </defs>
+        </svg>
       </nav>
       <a class="detail-email" href="mailto:1827617577@qq.com"><span>1827617577@qq.com</span></a>
       <h1 id="projectTitle" class="visually-hidden">项目详情</h1>

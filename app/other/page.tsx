@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MotionGallery } from "./motion-gallery";
+import { LiquidGlassNav } from "@/components/ui/liquid-glass-nav";
 
 export const metadata: Metadata = {
   title: "Dynamic Effect - Other",
@@ -20,12 +21,12 @@ export default function OtherPage() {
         <Link className="project-detail-back" href="/#work-first" aria-label="返回首页项目目录">
           <span className="project-detail-return-icon" aria-hidden="true" />
         </Link>
-        <nav className="project-detail-nav-links" aria-label="页面导航">
+        <LiquidGlassNav className="project-detail-nav-links" aria-label="页面导航">
           <Link href="/"><span>Home</span></Link>
           <Link href="/#work-first"><span>Work</span></Link>
           <Link href="/#about"><span>About</span></Link>
           <Link href="/#about"><span>Contact</span></Link>
-        </nav>
+        </LiquidGlassNav>
         <a className="project-detail-email" href="mailto:1827617577@qq.com">
           <span>1827617577@qq.com</span>
         </a>

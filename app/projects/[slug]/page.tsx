@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OptimizedPicture } from "@/components/ui/optimized-picture";
+import { LiquidGlassNav } from "@/components/ui/liquid-glass-nav";
 import {
   isProjectSlug,
   projectDetails,
@@ -51,12 +52,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             aria-hidden="true"
           />
         </Link>
-        <nav className="project-detail-nav-links" aria-label="项目页面导航">
+        <LiquidGlassNav className="project-detail-nav-links" aria-label="项目页面导航">
           <Link href="/"><span>Home</span></Link>
           <Link href="/#work-first"><span>Work</span></Link>
           <Link href="/#about"><span>About</span></Link>
           <Link href="/#about"><span>Contact</span></Link>
-        </nav>
+        </LiquidGlassNav>
         <a className="project-detail-email" href="mailto:1827617577@qq.com">
           <span>1827617577@qq.com</span>
         </a>

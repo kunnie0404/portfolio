@@ -340,12 +340,13 @@ test("catalog and detail navigation use layered liquid glass styling", async () 
 });
 
 test("detail navigation keeps its links and uses the supplied return icon", async () => {
-  const [offlineDetail, route, otherRoute, icon, globalCss] = await Promise.all([
+  const [offlineDetail, route, otherRoute, icon, globalCss, liquidGlassNav] = await Promise.all([
     readFile(new URL("../project-detail-preview.html", import.meta.url), "utf8"),
     readFile(new URL("../app/projects/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/other/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../public/portfolio-assets/return.svg", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../components/ui/liquid-glass-nav.tsx", import.meta.url), "utf8"),
   ]);
 
   for (const label of ["Home", "Work", "About", "Contact"]) {
@@ -367,12 +368,19 @@ test("detail navigation keeps its links and uses the supplied return icon", asyn
 
   assert.match(
     globalCss,
-    /\.project-detail-nav-links\s*\{[^}]*background:[^}]*rgba\(8, 8, 8, 0\.52\)[^}]*backdrop-filter:\s*blur\(28px\)\s+saturate\(175%\)/s,
+    /\.project-detail-nav-links\s*\{[^}]*box-shadow:[^}]*inset[^}]*backdrop-filter:\s*blur\(24px\)\s+saturate\(185%\)/s,
   );
   assert.match(
     offlineDetail,
-    /\.detail-nav-links\s*\{[^}]*background:[^}]*rgba\(8, 8, 8, 0\.52\)[^}]*backdrop-filter:\s*blur\(28px\)\s+saturate\(175%\)/s,
+    /\.detail-nav-links\s*\{[^}]*box-shadow:[^}]*inset[^}]*backdrop-filter:\s*blur\(24px\)\s+saturate\(185%\)/s,
   );
+  for (const source of [offlineDetail, liquidGlassNav]) {
+    assert.match(source, /feTurbulence/);
+    assert.match(source, /feDisplacementMap/);
+    assert.match(source, /project-nav-liquid-glass/);
+  }
+  assert.match(route, /<LiquidGlassNav className=["']project-detail-nav-links["']/);
+  assert.match(otherRoute, /<LiquidGlassNav className=["']project-detail-nav-links["']/);
 
   assert.match(offlineDetail, /<img[^>]*class=["']return-icon["'][^>]*src=["']public\/portfolio-assets\/return\.svg["']/);
   assert.match(offlineDetail, /\.return-icon\s*\{[^}]*filter:\s*brightness\(0\)\s+invert\(1\)/s);
