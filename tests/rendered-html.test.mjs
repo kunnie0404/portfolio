@@ -368,17 +368,16 @@ test("detail navigation keeps its links and uses the supplied return icon", asyn
 
   assert.match(
     globalCss,
-    /\.project-detail-nav-links\s*\{[^}]*box-shadow:[^}]*inset[^}]*backdrop-filter:\s*blur\(24px\)\s+saturate\(185%\)/s,
+    /\.liquid-glass-nav-backdrop\s*\{[^}]*rgba\(8, 8, 8, 0\.42\)[^}]*backdrop-filter:\s*blur\(20px\)\s+saturate\(165%\)\s+contrast\(105%\)/s,
   );
   assert.match(
     offlineDetail,
-    /\.detail-nav-links\s*\{[^}]*box-shadow:[^}]*inset[^}]*backdrop-filter:\s*blur\(24px\)\s+saturate\(185%\)/s,
+    /\.liquid-glass-nav-backdrop\s*\{[^}]*rgba\(8, 8, 8, 0\.42\)[^}]*backdrop-filter:\s*blur\(20px\)\s+saturate\(165%\)\s+contrast\(105%\)/s,
   );
-  for (const source of [offlineDetail, liquidGlassNav]) {
-    assert.match(source, /feTurbulence/);
-    assert.match(source, /feDisplacementMap/);
-    assert.match(source, /project-nav-liquid-glass/);
-  }
+  assert.match(liquidGlassNav, /liquid-glass-nav-backdrop/);
+  assert.match(liquidGlassNav, /backdropFilter:\s*["']blur\(20px\) saturate\(165%\) contrast\(105%\)["']/);
+  assert.match(offlineDetail, /style=["'][^"']*backdrop-filter:\s*blur\(20px\) saturate\(165%\) contrast\(105%\)/);
+  assert.doesNotMatch(liquidGlassNav, /feTurbulence|feDisplacementMap/);
   assert.match(route, /<LiquidGlassNav className=["']project-detail-nav-links["']/);
   assert.match(otherRoute, /<LiquidGlassNav className=["']project-detail-nav-links["']/);
 
