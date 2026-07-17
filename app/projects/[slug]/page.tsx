@@ -55,7 +55,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <Link href="/"><span>Home</span></Link>
           <Link href="/#work-first"><span>Work</span></Link>
           <Link href="/#about"><span>About</span></Link>
-          <Link href="/#contact"><span>Contact</span></Link>
+          <Link href="/#about"><span>Contact</span></Link>
         </nav>
         <a className="project-detail-email" href="mailto:1827617577@qq.com">
           <span>1827617577@qq.com</span>

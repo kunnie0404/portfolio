@@ -599,6 +599,7 @@ img {
 }
 
 .project-detail-nav-links {
+  position: relative;
   display: flex;
   align-items: center;
   grid-column: 2;
@@ -606,6 +607,12 @@ img {
   height: 100%;
   padding: 3px;
   gap: 3px;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(255, 255, 255, 0.24), transparent 40%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.045) 48%, rgba(0, 0, 0, 0.16)),
+    rgba(8, 8, 8, 0.52);
+  backdrop-filter: blur(28px) saturate(175%) contrast(105%);
+  -webkit-backdrop-filter: blur(28px) saturate(175%) contrast(105%);
 }
 
 .project-detail-nav-links a {
