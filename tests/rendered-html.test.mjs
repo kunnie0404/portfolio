@@ -195,7 +195,7 @@ test("reference preview catalog links to the five project pages", async () => {
   assert.doesNotMatch(html, /http:\/\/localhost:3000/);
 });
 
-test("mobile Work heading keeps a transparent-to-black image veil", async () => {
+test("Work heading keeps a transparent-to-black image veil", async () => {
   const html = await readFile(
     new URL("../reference-dino-preview.html", import.meta.url),
     "utf8",
@@ -204,8 +204,22 @@ test("mobile Work heading keeps a transparent-to-black image veil", async () => 
   assert.match(html, /@media \(max-width: 809\.98px\)[\s\S]*?\.collection::before\s*\{[^}]*height:\s*520px/s);
   assert.match(
     html,
-    /\.collection::before\s*\{[^}]*linear-gradient\([\s\S]*?rgba\(10, 10, 10, 0\) 0%[\s\S]*?#0a0a0a 40%/s,
+    /\.collection::before\s*\{[^}]*height:\s*420px[^}]*linear-gradient\([\s\S]*?rgba\(0, 0, 0, 0\) 0%[\s\S]*?#000 100%/s,
   );
+});
+
+test("hero presentation follows the reviewed visual details", async () => {
+  const html = await readFile(
+    new URL("../reference-dino-preview.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.doesNotMatch(html, /Water Wave|Gridwave|Light Tunnel|Hero theme switcher/i);
+  assert.match(html, /\.hero-background video\s*\{[^}]*object-position:\s*center center/s);
+  assert.match(html, /class=["']availability["'][^>]*>[\s\S]*?id=["']statusDot["']/);
+  assert.match(html, /<span>Start A Project<\/span>/);
+  assert.match(html, /time\.education-degree\s*\{[^}]*color:\s*#fff/s);
+  assert.match(html, /<time class=["']education-degree["']>本科<\/time>/);
 });
 
 test("offline detail preview includes every project and local image path", async () => {

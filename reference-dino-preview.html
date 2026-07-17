@@ -105,7 +105,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: right center;
+        object-position: center center;
       }
 
       .overlay {
@@ -308,50 +308,7 @@
         align-items: flex-start;
       }
 
-      .switcher {
-        flex: 4;
-        display: grid;
-        gap: 10px;
-      }
-
-      .role-link {
-        width: max-content;
-        display: inline-flex;
-        gap: 9px;
-        align-items: baseline;
-        text-align: left;
-        opacity: 0.55;
-        transition:
-          opacity 280ms ease,
-          transform 420ms var(--ease-spring);
-      }
-
-      .role-link:hover {
-        opacity: 0.75;
-        transform: translateX(4px);
-      }
-
-      .role-link.is-active {
-        opacity: 1;
-      }
-
-      .role-index {
-        font-size: 8px;
-        line-height: 12px;
-        letter-spacing: -0.08px;
-        font-weight: 500;
-      }
-
-      .role-label {
-        font-size: 12px;
-        line-height: 16px;
-        letter-spacing: -0.12px;
-        font-weight: 500;
-        text-transform: uppercase;
-      }
-
       .availability {
-        flex: 1;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -581,6 +538,10 @@
         color: #a8a8a8;
       }
 
+      .about-row time.education-degree {
+        color: #fff;
+      }
+
       .skill-bars {
         display: grid;
         gap: 9px;
@@ -720,8 +681,8 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 360px;
-        background: linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0.32) 48%, #0a0a0a 100%);
+        height: 420px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.42) 48%, #000 100%);
         pointer-events: none;
       }
 
@@ -1121,7 +1082,6 @@
           gap: 28px;
         }
 
-        .switcher,
         .availability,
         .name-wrap,
         .hero-copy {
@@ -1272,21 +1232,6 @@
 
       <section id="home" class="hero" aria-labelledby="hero-title">
         <div class="hero-top">
-          <div class="switcher" id="works" aria-label="Hero theme switcher">
-            <button class="role-link is-active" type="button" data-switch="0">
-              <span class="role-index">01 /</span>
-              <span class="role-label">Water Wave</span>
-            </button>
-            <button class="role-link" type="button" data-switch="1">
-              <span class="role-index">02 /</span>
-              <span class="role-label">Gridwave</span>
-            </button>
-            <button class="role-link" type="button" data-switch="2">
-              <span class="role-index">03 /</span>
-              <span class="role-label">Light Tunnel</span>
-            </button>
-          </div>
-
           <div class="availability" role="status" aria-live="polite">
             <span class="dot" id="statusDot"></span>
             <span>creation of value</span>
@@ -1303,7 +1248,7 @@
               As a UI designer, I am extremely grateful for your giving me this opportunity. I am looking forward very much to
               working with you in the future.
             </p>
-            <a class="project-button" id="services" href="mailto:1827617577@qq.com"><span>start a project</span></a>
+            <a class="project-button" id="services" href="mailto:1827617577@qq.com"><span>Start A Project</span></a>
           </div>
         </div>
       </section>
@@ -1358,7 +1303,7 @@
 
             <section class="about-block" aria-labelledby="education-title">
               <h3 id="education-title">Education</h3>
-              <div class="about-row"><time>本科</time><span>江西服装学院 / 服装设计</span></div>
+              <div class="about-row"><time class="education-degree">本科</time><span>江西服装学院 / 服装设计</span></div>
             </section>
 
             <section class="about-block" aria-labelledby="work-title">
@@ -1459,8 +1404,6 @@
 
     <script src="public/spotlight-cursor.js"></script>
     <script>
-      const switches = Array.from(document.querySelectorAll("[data-switch]"));
-      const statusDot = document.querySelector("#statusDot");
       const period = document.querySelector("#period");
       const menuToggle = document.querySelector(".menu-toggle");
       const mobilePanel = document.querySelector(".mobile-panel");
@@ -1479,15 +1422,7 @@
       const chapterNumber = document.querySelector("#chapterNumber");
       const chapterLabel = document.querySelector("#chapterLabel");
       const projectLinks = Array.from(document.querySelectorAll("[data-project-route]"));
-      let activeIndex = 0;
       let activeChapter = 2;
-
-      function setVideo(index) {
-        activeIndex = index;
-        switches.forEach((button, buttonIndex) => button.classList.toggle("is-active", buttonIndex === index));
-        const accentIsWhite = index !== 0;
-        statusDot.classList.toggle("is-white", accentIsWhite);
-      }
 
       function setChapter(index) {
         activeChapter = index;
@@ -1508,10 +1443,6 @@
           chapterImage.style.filter = "blur(0)";
         }, 220);
       }
-
-      switches.forEach((button) => {
-        button.addEventListener("click", () => setVideo(Number(button.dataset.switch)));
-      });
 
       menuToggle.addEventListener("click", () => {
         const isOpen = mobilePanel.classList.toggle("is-open");
@@ -1543,7 +1474,6 @@
       });
 
       window.setInterval(() => setChapter((activeChapter + 1) % chapterData.length), 3500);
-      setVideo(0);
     </script>
   </body>
 </html>
