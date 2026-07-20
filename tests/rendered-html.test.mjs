@@ -195,16 +195,16 @@ test("reference preview catalog links to the five project pages", async () => {
   assert.doesNotMatch(html, /http:\/\/localhost:3000/);
 });
 
-test("Work heading keeps a transparent-to-black image veil", async () => {
+test("Work heading veil ends exactly at the project divider", async () => {
   const html = await readFile(
     new URL("../reference-dino-preview.html", import.meta.url),
     "utf8",
   );
 
-  assert.match(html, /@media \(max-width: 809\.98px\)[\s\S]*?\.collection::before\s*\{[^}]*height:\s*520px/s);
+  assert.match(html, /\.collection::before\s*\{[^}]*content:\s*none/s);
   assert.match(
     html,
-    /\.collection::before\s*\{[^}]*height:\s*420px[^}]*linear-gradient\([\s\S]*?rgba\(0, 0, 0, 0\) 0%[\s\S]*?#000 100%/s,
+    /\.collection-head\s*\{[^}]*background:\s*linear-gradient\([\s\S]*?rgba\(0, 0, 0, 0\) 0%[\s\S]*?#000 100%/s,
   );
 });
 
