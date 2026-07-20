@@ -2,8 +2,8 @@
 
 - Source visual truth: Browser Comment 1 screenshot attached in the current Codex task (`reference-dino-preview.html#portfolio-collection`).
 - Implementation screenshot: in-app Browser capture of `https://www.kunnie0217.art/?verify=1ce921f#portfolio-collection`.
-- Viewport: 1280 × 720 desktop.
-- State: Portfolio collection, chapter 03 list visible.
+- Viewports: 1280 × 720 desktop and 390 × 844 mobile.
+- State: Portfolio collection, chapter 03 list visible on desktop and the matching collection visual visible on mobile.
 
 **Full-view Comparison Evidence**
 
@@ -13,7 +13,8 @@
 
 **Focused Region Comparison Evidence**
 
-- `.chapter-image` resolves to `translate: 0 -30%` on desktop and `translate: none` on mobile.
+- `.chapter-image` resolves to `translate: 0 -30%` on desktop and `translate: none` at 390 × 844 mobile.
+- The mobile collection panel remains 420px high, the image keeps its original in-panel position, and no horizontal overflow is introduced.
 - `.collection-visual`, `.collection-stars`, and `.chapter-counter` all resolve to `translate: none`; the panel markers were not moved with the image.
 - The image remains contained without stretching, pixelation, or a changed blend treatment.
 
