@@ -1,7 +1,8 @@
 # Design QA
 
 - Source visual truth: `C:/Users/ASUS/Desktop/image 1637.png`
-- Implementation screenshot: `D:/CodexProjects/网站1.0/qa/hero-local.png`
+- Implementation URL: `https://www.kunnie0217.art/?verify=972110b#home`
+- Implementation screenshot: `D:/CodexProjects/网站1.0/qa/hero-production.png`
 - Combined comparison: `D:/CodexProjects/网站1.0/qa/hero-comparison.png`
 - Responsive evidence: `D:/CodexProjects/网站1.0/qa/hero-mobile.png`
 - Viewport: 1672 × 941 desktop; 390 × 844 responsive check
@@ -9,7 +10,7 @@
 
 ## Full-view comparison evidence
 
-The combined comparison places the supplied bubble-girl image on the left and the browser-rendered hero on the right at the same 1672 × 941 viewport. The implementation uses the exact supplied subject, keeps the central bubble and girl centered, preserves the source aspect ratio through `object-fit: cover`, and applies only the homepage's existing dark overlay and content layers.
+The combined comparison places the supplied bubble-girl image on the left and the production browser-rendered hero on the right at the same 1672 × 941 viewport. The implementation uses the exact supplied subject, keeps the central bubble and girl centered, preserves the source aspect ratio through `object-fit: cover`, and applies only the homepage's existing dark overlay and content layers.
 
 ## Focused comparison evidence
 
@@ -42,7 +43,7 @@ A representative 1280px Echos project image was visually inspected after recompr
 
 ## Primary interactions tested
 
-- Homepage loaded successfully at desktop and mobile viewports.
+- Production homepage loaded successfully at the desktop viewport; the local production build was also checked at the mobile viewport.
 - Poster URL, deferred video source, shared dimensions, crop mode, and crop center were inspected in the rendered browser.
 - Console errors and warnings checked: none.
 
