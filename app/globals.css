@@ -849,7 +849,7 @@ img {
 .motion-heading h1 {
   grid-row: 2;
   margin: 4px 0 0;
-  font-family: Figtree, Arial, sans-serif;
+  font-family: var(--font-figtree), Arial, sans-serif;
   font-size: clamp(34px, 5vw, 76px);
   line-height: 0.95;
   font-weight: 500;
@@ -905,7 +905,7 @@ img {
 .watch-face-section h2 {
   margin: 0 0 clamp(34px, 5vw, 72px);
   color: #fff;
-  font-family: Figtree, Arial, sans-serif;
+  font-family: var(--font-figtree), Arial, sans-serif;
   font-size: clamp(34px, 5vw, 76px);
   line-height: 0.95;
   font-weight: 500;

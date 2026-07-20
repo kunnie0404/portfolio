@@ -9,9 +9,7 @@
     <meta property="og:description" content="App、Web、智能穿戴与动态视觉设计作品。" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <style>
       :root {
         --accent: #f598f2;
@@ -1193,7 +1191,16 @@
     <canvas class="spotlight-cursor" data-spotlight-cursor data-radius="200" data-brightness="0.14" data-smoothing="0.12" aria-hidden="true"></canvas>
     <main class="page">
       <div class="hero-background" aria-hidden="true">
-        <video src="public/portfolio-assets/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
+        <video
+          id="heroVideo"
+          data-src="public/portfolio-assets/hero-video.mp4"
+          poster="public/portfolio-assets/hero-bg.webp"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="none"
+        ></video>
       </div>
       <div class="overlay" aria-hidden="true"></div>
 
@@ -1336,8 +1343,8 @@
 
       <section id="portfolio-collection" class="collection">
         <picture>
-          <source srcset="public/portfolio-assets/hero.avif" type="image/avif" />
-          <source srcset="public/portfolio-assets/hero.webp" type="image/webp" />
+          <source srcset="public/portfolio-assets/hero.1280.avif 1280w, public/portfolio-assets/hero.avif 1758w" sizes="100vw" type="image/avif" />
+          <source srcset="public/portfolio-assets/hero.1280.webp 1280w, public/portfolio-assets/hero.webp 1758w" sizes="100vw" type="image/webp" />
           <img class="collection-wing" src="public/portfolio-assets/hero.webp" alt="" loading="lazy" decoding="async" />
         </picture>
         <div class="collection-head">
@@ -1356,9 +1363,9 @@
           <div class="collection-visual">
             <div class="collection-stars">***</div>
             <picture style="display: contents">
-              <source id="chapterAvifSource" srcset="public/portfolio-assets/cover-da-ring.avif" type="image/avif" />
-              <source id="chapterWebpSource" srcset="public/portfolio-assets/cover-da-ring.webp" type="image/webp" />
-              <img id="chapterImage" class="chapter-image" src="public/portfolio-assets/cover-da-ring.webp" alt="App-Da Ring" decoding="async" />
+              <source id="chapterAvifSource" srcset="public/portfolio-assets/cover-da-ring.1280.avif 1280w, public/portfolio-assets/cover-da-ring.avif 2484w" sizes="(max-width: 809px) 82vw, 29vw" type="image/avif" />
+              <source id="chapterWebpSource" srcset="public/portfolio-assets/cover-da-ring.1280.webp 1280w, public/portfolio-assets/cover-da-ring.webp 2484w" sizes="(max-width: 809px) 82vw, 29vw" type="image/webp" />
+              <img id="chapterImage" class="chapter-image" src="public/portfolio-assets/cover-da-ring.webp" alt="App-Da Ring" loading="lazy" fetchpriority="low" decoding="async" />
             </picture>
             <div class="chapter-counter"><span id="chapterNumber">03</span><span>/</span><span>06</span></div>
           </div>
@@ -1401,7 +1408,7 @@
 
     <script src="public/spotlight-cursor.js"></script>
     <script>
-      const period = document.querySelector("#period");
+      const heroVideo = document.querySelector("#heroVideo");
       const menuToggle = document.querySelector(".menu-toggle");
       const mobilePanel = document.querySelector(".mobile-panel");
       const chapterData = [
@@ -1421,6 +1428,16 @@
       const projectLinks = Array.from(document.querySelectorAll("[data-project-route]"));
       let activeChapter = 2;
 
+      function loadHeroVideo() {
+        if (!heroVideo || heroVideo.src || !heroVideo.dataset.src) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || navigator.connection?.saveData) return;
+        heroVideo.src = heroVideo.dataset.src;
+        heroVideo.load();
+        heroVideo.play().catch(() => {});
+      }
+
+      window.addEventListener("load", () => window.setTimeout(loadHeroVideo, 1200), { once: true });
+
       function setChapter(index) {
         activeChapter = index;
         chapterButtons.forEach((button, buttonIndex) => button.classList.toggle("active", buttonIndex === index));
@@ -1429,8 +1446,8 @@
         chapterImage.style.filter = "blur(6px)";
 
         window.setTimeout(() => {
-          chapterAvifSource.srcset = `${chapterData[index].image}.avif`;
-          chapterWebpSource.srcset = `${chapterData[index].image}.webp`;
+          chapterAvifSource.srcset = `${chapterData[index].image}.1280.avif 1280w, ${chapterData[index].image}.avif 2484w`;
+          chapterWebpSource.srcset = `${chapterData[index].image}.1280.webp 1280w, ${chapterData[index].image}.webp 2484w`;
           chapterImage.src = `${chapterData[index].image}.webp`;
           chapterImage.alt = chapterData[index].alt;
           chapterNumber.textContent = String(index + 1).padStart(2, "0");

@@ -221,6 +221,37 @@ test("catalog project preview image sits higher in its visual panel", async () =
   );
 });
 
+test("heavy homepage media does not block the initial render", async () => {
+  const html = await readFile(
+    new URL("../reference-dino-preview.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(html, /<video[\s\S]*?data-src=["']public\/portfolio-assets\/hero-video\.mp4["'][\s\S]*?preload=["']none["']/s);
+  assert.doesNotMatch(html, /<video\s+src=/s);
+  assert.match(html, /id=["']chapterImage["'][^>]*loading=["']lazy["'][^>]*fetchpriority=["']low["']/s);
+  assert.match(html, /cover-da-ring\.1280\.avif\s+1280w/);
+  assert.doesNotMatch(html, /fonts\.googleapis\.com[^>]+rel=["']stylesheet["']\s*\/>/);
+  assert.match(html, /fonts\.googleapis\.com[^>]+media=["']print["']/);
+});
+
+test("project pictures use native lazy loading and responsive sources", async () => {
+  const component = await readFile(
+    new URL("../components/ui/optimized-picture.tsx", import.meta.url),
+    "utf8",
+  );
+  const config = await readFile(
+    new URL("../next.config.ts", import.meta.url),
+    "utf8",
+  );
+
+  assert.doesNotMatch(component, /["']use client["']/);
+  assert.doesNotMatch(component, /IntersectionObserver|rootMargin|data-src/);
+  assert.match(component, /1280w/);
+  assert.match(config, /source:\s*["']\/portfolio-assets\/:path\*["']/);
+  assert.match(config, /max-age=86400[^"']*s-maxage=31536000/);
+});
+
 test("hero presentation follows the reviewed visual details", async () => {
   const html = await readFile(
     new URL("../reference-dino-preview.html", import.meta.url),

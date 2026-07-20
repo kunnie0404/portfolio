@@ -11,12 +11,6 @@ export const metadata: Metadata = {
 export default function OtherPage() {
   return (
     <main className="other-page">
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap"
-      />
       <header className="project-detail-header">
         <Link className="project-detail-back" href="/#work-first" aria-label="返回首页项目目录">
           <span className="project-detail-return-icon" aria-hidden="true" />
