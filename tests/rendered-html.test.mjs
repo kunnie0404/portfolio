@@ -214,10 +214,10 @@ test("catalog project preview image sits higher in its visual panel", async () =
     "utf8",
   );
 
-  assert.match(html, /\.chapter-image\s*\{[^}]*translate:\s*0\s+-18%/s);
+  assert.match(html, /\.chapter-image\s*\{[^}]*translate:\s*0\s+-30%/s);
   assert.match(
     html,
-    /@media \(max-width: 809\.98px\)[\s\S]*?\.chapter-image\s*\{[^}]*translate:\s*0\s+-10%/s,
+    /@media \(max-width: 809\.98px\)[\s\S]*?\.chapter-image\s*\{[^}]*translate:\s*0\s+-18%/s,
   );
 });
 
