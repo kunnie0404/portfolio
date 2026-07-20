@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
 import { SpotlightCursor } from "@/components/ui/spotlight-cursor";
 import "./globals.css";
-
-const figtree = Figtree({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-figtree",
-});
 
 export const metadata: Metadata = {
   title: "许晓琨｜UI 设计作品集",
@@ -25,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={figtree.variable}>
+    <html lang="zh-CN">
       <body>
         {children}
         <SpotlightCursor />

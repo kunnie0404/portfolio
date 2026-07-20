@@ -51,13 +51,9 @@
     "width": 2484,
     "height": 1951
   },
-  "/portfolio-assets/hero-bg.1280.webp": {
-    "width": 1280,
-    "height": 720
-  },
-  "/portfolio-assets/hero-bg.webp": {
-    "width": 2560,
-    "height": 1440
+  "/portfolio-assets/hero-poster-bubbles.webp": {
+    "width": 1672,
+    "height": 941
   },
   "/portfolio-assets/hero.1280.webp": {
     "width": 1280,
@@ -361,7 +357,7 @@
   },
   "/portfolio-assets/projects/da-ring/daring_1.1280.webp": {
     "width": 1280,
-    "height": 1760
+    "height": 1759
   },
   "/portfolio-assets/projects/da-ring/daring_1.webp": {
     "width": 2560,
@@ -369,7 +365,7 @@
   },
   "/portfolio-assets/projects/da-ring/daring_2.1280.webp": {
     "width": 1280,
-    "height": 1712
+    "height": 1713
   },
   "/portfolio-assets/projects/da-ring/daring_2.webp": {
     "width": 2560,
@@ -377,7 +373,7 @@
   },
   "/portfolio-assets/projects/da-ring/daring_3.1280.webp": {
     "width": 1280,
-    "height": 1950
+    "height": 1951
   },
   "/portfolio-assets/projects/da-ring/daring_3.webp": {
     "width": 2560,
@@ -385,7 +381,7 @@
   },
   "/portfolio-assets/projects/da-ring/daring_4.1280.webp": {
     "width": 1280,
-    "height": 1712
+    "height": 1711
   },
   "/portfolio-assets/projects/da-ring/daring_4.webp": {
     "width": 2560,
@@ -401,7 +397,7 @@
   },
   "/portfolio-assets/projects/da-ring/daring_6.1280.webp": {
     "width": 1280,
-    "height": 1216
+    "height": 1215
   },
   "/portfolio-assets/projects/da-ring/daring_6.webp": {
     "width": 2560,
@@ -433,7 +429,7 @@
   },
   "/portfolio-assets/projects/echos/echos_1.1280.webp": {
     "width": 1280,
-    "height": 784
+    "height": 785
   },
   "/portfolio-assets/projects/echos/echos_1.webp": {
     "width": 2560,
@@ -465,7 +461,7 @@
   },
   "/portfolio-assets/projects/echos/echos_2.1280.webp": {
     "width": 1280,
-    "height": 762
+    "height": 761
   },
   "/portfolio-assets/projects/echos/echos_2.webp": {
     "width": 2560,
@@ -481,7 +477,7 @@
   },
   "/portfolio-assets/projects/echos/echos_4.1280.webp": {
     "width": 1280,
-    "height": 1396
+    "height": 1395
   },
   "/portfolio-assets/projects/echos/echos_4.webp": {
     "width": 2560,
@@ -497,7 +493,7 @@
   },
   "/portfolio-assets/projects/echos/echos_6.1280.webp": {
     "width": 1280,
-    "height": 766
+    "height": 765
   },
   "/portfolio-assets/projects/echos/echos_6.webp": {
     "width": 2560,
@@ -513,7 +509,7 @@
   },
   "/portfolio-assets/projects/echos/echos_8.1280.webp": {
     "width": 1280,
-    "height": 2076
+    "height": 2075
   },
   "/portfolio-assets/projects/echos/echos_8.webp": {
     "width": 2560,
@@ -521,7 +517,7 @@
   },
   "/portfolio-assets/projects/echos/echos_9.1280.webp": {
     "width": 1280,
-    "height": 2232
+    "height": 2231
   },
   "/portfolio-assets/projects/echos/echos_9.webp": {
     "width": 2560,
@@ -529,7 +525,7 @@
   },
   "/portfolio-assets/projects/luxury/Luxury_10.1280.webp": {
     "width": 1280,
-    "height": 714
+    "height": 713
   },
   "/portfolio-assets/projects/luxury/Luxury_10.webp": {
     "width": 2560,
@@ -537,7 +533,7 @@
   },
   "/portfolio-assets/projects/luxury/Luxury_11.1280.webp": {
     "width": 1280,
-    "height": 888
+    "height": 887
   },
   "/portfolio-assets/projects/luxury/Luxury_11.webp": {
     "width": 2560,
@@ -545,7 +541,7 @@
   },
   "/portfolio-assets/projects/luxury/Luxury_12.1280.webp": {
     "width": 1280,
-    "height": 1728
+    "height": 1729
   },
   "/portfolio-assets/projects/luxury/Luxury_12.webp": {
     "width": 2560,
@@ -561,7 +557,7 @@
   },
   "/portfolio-assets/projects/luxury/Luxury_14.1280.webp": {
     "width": 1280,
-    "height": 2424
+    "height": 2423
   },
   "/portfolio-assets/projects/luxury/Luxury_14.webp": {
     "width": 2560,
@@ -569,7 +565,7 @@
   },
   "/portfolio-assets/projects/luxury/Luxury_9.1280.webp": {
     "width": 1280,
-    "height": 648
+    "height": 649
   },
   "/portfolio-assets/projects/luxury/Luxury_9.webp": {
     "width": 2560,
@@ -585,7 +581,7 @@
   },
   "/portfolio-assets/projects/mo-glass/moglass_10.1280.webp": {
     "width": 1280,
-    "height": 2092
+    "height": 2093
   },
   "/portfolio-assets/projects/mo-glass/moglass_10.webp": {
     "width": 2560,
@@ -593,7 +589,7 @@
   },
   "/portfolio-assets/projects/mo-glass/moglass_11.1280.webp": {
     "width": 1280,
-    "height": 1636
+    "height": 1635
   },
   "/portfolio-assets/projects/mo-glass/moglass_11.webp": {
     "width": 2560,
@@ -641,7 +637,7 @@
   },
   "/portfolio-assets/projects/mo-glass/moglass_6.1280.webp": {
     "width": 1280,
-    "height": 1820
+    "height": 1819
   },
   "/portfolio-assets/projects/mo-glass/moglass_6.webp": {
     "width": 2560,
@@ -649,7 +645,7 @@
   },
   "/portfolio-assets/projects/mo-glass/moglass_7.1280.webp": {
     "width": 1280,
-    "height": 1796
+    "height": 1797
   },
   "/portfolio-assets/projects/mo-glass/moglass_7.webp": {
     "width": 2560,
@@ -657,7 +653,7 @@
   },
   "/portfolio-assets/projects/mo-glass/moglass_8.1280.webp": {
     "width": 1280,
-    "height": 1396
+    "height": 1395
   },
   "/portfolio-assets/projects/mo-glass/moglass_8.webp": {
     "width": 2560,
@@ -665,7 +661,7 @@
   },
   "/portfolio-assets/projects/mo-glass/moglass_9.1280.webp": {
     "width": 1280,
-    "height": 1936
+    "height": 1937
   },
   "/portfolio-assets/projects/mo-glass/moglass_9.webp": {
     "width": 2560,
@@ -673,7 +669,7 @@
   },
   "/portfolio-assets/projects/neon/neon_3.1280.webp": {
     "width": 1280,
-    "height": 648
+    "height": 649
   },
   "/portfolio-assets/projects/neon/neon_3.webp": {
     "width": 2560,
@@ -697,7 +693,7 @@
   },
   "/portfolio-assets/projects/neon/neon_6.1280.webp": {
     "width": 1280,
-    "height": 1630
+    "height": 1629
   },
   "/portfolio-assets/projects/neon/neon_6.webp": {
     "width": 2560,

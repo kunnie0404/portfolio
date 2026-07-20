@@ -1,51 +1,49 @@
-**Comparison Target**
+# Design QA
 
-- Source visual truth: Browser Comment 1 screenshot attached in the current Codex task (`reference-dino-preview.html#portfolio-collection`).
-- Implementation screenshot: in-app Browser capture of `https://www.kunnie0217.art/?verify=1ce921f#portfolio-collection`.
-- Viewports: 1280 × 720 desktop and 390 × 844 mobile.
-- State: Portfolio collection, chapter 03 list visible on desktop and the matching collection visual visible on mobile.
+- Source visual truth: `C:/Users/ASUS/Desktop/image 1637.png`
+- Implementation screenshot: `D:/CodexProjects/网站1.0/qa/hero-local.png`
+- Combined comparison: `D:/CodexProjects/网站1.0/qa/hero-comparison.png`
+- Responsive evidence: `D:/CodexProjects/网站1.0/qa/hero-mobile.png`
+- Viewport: 1672 × 941 desktop; 390 × 844 responsive check
+- State: homepage hero, initial poster/video surface, centered cover crop
 
-**Full-view Comparison Evidence**
+## Full-view comparison evidence
 
-- The left visual panel keeps its original dimensions and grid position.
-- The project image is visibly higher inside the panel while the right project list remains unchanged.
-- Navigation, chapter header, stars, counter, typography, colors, and copy preserve the existing design.
-- The heading veil now ends at the project divider instead of extending into the project panel.
+The combined comparison places the supplied bubble-girl image on the left and the browser-rendered hero on the right at the same 1672 × 941 viewport. The implementation uses the exact supplied subject, keeps the central bubble and girl centered, preserves the source aspect ratio through `object-fit: cover`, and applies only the homepage's existing dark overlay and content layers.
 
-**Focused Region Comparison Evidence**
+## Focused comparison evidence
 
-- `.chapter-image` resolves to `translate: 0 -30%` on desktop and `translate: none` at 390 × 844 mobile.
-- The mobile collection panel remains 420px high, the image keeps its original in-panel position, and no horizontal overflow is introduced.
-- At 1468 × 674, `.collection-head` ends at y=719.094 and `.collection-panel` starts at y=719.094; the veil and divider are flush with no overlap.
-- `.collection-visual`, `.collection-stars`, and `.chapter-counter` all resolve to `translate: none`; the panel markers were not moved with the image.
-- The image remains contained without stretching, pixelation, or a changed blend treatment.
+No separate crop was needed because the full-view comparison keeps the source and implementation at matching dimensions and the important subject, highlights, bubble edges, and crop boundaries remain readable. Browser inspection confirmed the video and its background container share the same 1657 × 941 rendered box, with `object-fit: cover` and `object-position: 50% 50%`.
 
-**Findings**
+## Required fidelity surfaces
 
-- No actionable P0, P1, or P2 visual differences remain for the requested image-position adjustment.
+- Fonts and typography: unchanged from the existing homepage; navigation, hero title, supporting copy, and CTA keep their reviewed sizing and hierarchy.
+- Spacing and layout rhythm: unchanged; the poster occupies the same full-screen hero box as the video. The 15px width difference from the requested viewport is the browser scrollbar, not layout drift.
+- Colors and visual tokens: the supplied image colors are preserved. The darker appearance in the rendered hero is the existing intentional homepage overlay, which maintains text contrast.
+- Image quality and asset fidelity: exact supplied image used, encoded once to an 88-quality WebP at 1672 × 941 (about 86 KB). The subject remains sharp and centered with no stretching or replacement artwork.
+- Copy and content: unchanged.
 
-**Open Questions**
+## Responsive evidence
 
-- None.
+At 390 × 844, browser inspection confirmed the same poster URL, `object-fit: cover`, `object-position: 50% 50%`, and a hero/video box matching the visible viewport height. No console warnings or errors were recorded at either viewport.
 
-**Implementation Checklist**
+## WORK image quality
 
-- [x] Raise only the project image on desktop.
-- [x] Restore the original image position on mobile.
-- [x] Preserve the panel, stars, counter, list, and interactions.
-- [x] Verify the production CSS and rendered placement.
+A representative 1280px Echos project image was visually inspected after recompression. Fine interface text, gradients, device edges, and dark tonal transitions remained readable and free of obvious banding or blur. All WORK images were rebuilt from their original PNG files rather than recompressed from prior WebP/AVIF files.
 
-**Comparison History**
+## Findings
 
-- Iteration 1 finding: the previous desktop offset of -18% was still too low (P2).
-- Fix made: increased desktop offset to -30%; a later user review removed the mobile offset entirely.
-- Post-fix evidence: production Browser capture shows the desktop image higher in the unchanged panel; the mobile media rule explicitly resets image translation while surrounding markers remain unmoved.
-- Iteration 2 finding: the fixed-height heading veil extended below the divider into the project region (P2).
-- Fix made: bound the gradient background to `.collection-head` and disabled the fixed-height collection pseudo-element.
-- Post-fix evidence: the production Browser measurement shows the heading bottom and project panel top at the same y-coordinate, and the 1468 × 674 capture shows a clean divider edge.
+- No actionable P0, P1, or P2 visual differences.
+- Acceptable intentional difference: the existing hero overlay darkens the raw source image to preserve the site's established text contrast.
 
-**Follow-up Polish**
+## Comparison history
 
-- None required for this scoped adjustment.
+- Pass 1: no actionable P0/P1/P2 findings; no visual fix iteration required.
+
+## Primary interactions tested
+
+- Homepage loaded successfully at desktop and mobile viewports.
+- Poster URL, deferred video source, shared dimensions, crop mode, and crop center were inspected in the rendered browser.
+- Console errors and warnings checked: none.
 
 final result: passed

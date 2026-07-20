@@ -260,6 +260,8 @@ test("hero presentation follows the reviewed visual details", async () => {
 
   assert.doesNotMatch(html, /Water Wave|Gridwave|Light Tunnel|Hero theme switcher/i);
   assert.match(html, /\.hero-background video\s*\{[^}]*object-position:\s*center center/s);
+  assert.match(html, /poster=["']public\/portfolio-assets\/hero-poster-bubbles\.webp["']/);
+  assert.doesNotMatch(html, /hero-bg\.(?:avif|webp)/);
   assert.match(html, /class=["']availability["'][^>]*>[\s\S]*?id=["']statusDot["']/);
   assert.match(html, /<span>Start A Project<\/span>/);
   assert.match(html, /time\.education-degree\s*\{[^}]*color:\s*#fff/s);

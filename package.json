@@ -10,6 +10,7 @@
     "prepare:home": "node scripts/prepare-next-home.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "optimize:responsive": "node scripts/optimize-responsive-assets.mjs",
+    "replace:hero-poster": "node scripts/replace-hero-poster.mjs",
     "dev": "pnpm run prepare:home && next dev",
     "build": "pnpm run prepare:home && next build",
     "start": "next start",
