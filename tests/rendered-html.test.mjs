@@ -208,6 +208,19 @@ test("Work heading keeps a transparent-to-black image veil", async () => {
   );
 });
 
+test("catalog project preview image sits higher in its visual panel", async () => {
+  const html = await readFile(
+    new URL("../reference-dino-preview.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(html, /\.chapter-image\s*\{[^}]*translate:\s*0\s+-18%/s);
+  assert.match(
+    html,
+    /@media \(max-width: 809\.98px\)[\s\S]*?\.chapter-image\s*\{[^}]*translate:\s*0\s+-10%/s,
+  );
+});
+
 test("hero presentation follows the reviewed visual details", async () => {
   const html = await readFile(
     new URL("../reference-dino-preview.html", import.meta.url),
