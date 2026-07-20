@@ -13,7 +13,7 @@
 
 **Focused Region Comparison Evidence**
 
-- `.chapter-image` resolves to `translate: 0 -30%` and appears at viewport y=318 after scrolling the collection into view.
+- `.chapter-image` resolves to `translate: 0 -30%` on desktop and `translate: none` on mobile.
 - `.collection-visual`, `.collection-stars`, and `.chapter-counter` all resolve to `translate: none`; the panel markers were not moved with the image.
 - The image remains contained without stretching, pixelation, or a changed blend treatment.
 
@@ -28,15 +28,15 @@
 **Implementation Checklist**
 
 - [x] Raise only the project image on desktop.
-- [x] Apply a lighter responsive offset on mobile.
+- [x] Restore the original image position on mobile.
 - [x] Preserve the panel, stars, counter, list, and interactions.
 - [x] Verify the production CSS and rendered placement.
 
 **Comparison History**
 
 - Iteration 1 finding: the previous desktop offset of -18% was still too low (P2).
-- Fix made: increased desktop offset to -30% and mobile offset to -18%.
-- Post-fix evidence: production Browser capture shows the image higher in the unchanged panel; measured surrounding markers have no translate applied.
+- Fix made: increased desktop offset to -30%; a later user review removed the mobile offset entirely.
+- Post-fix evidence: production Browser capture shows the desktop image higher in the unchanged panel; the mobile media rule explicitly resets image translation while surrounding markers remain unmoved.
 
 **Follow-up Polish**
 
