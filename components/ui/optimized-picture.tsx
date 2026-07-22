@@ -1,5 +1,6 @@
 import type { ImgHTMLAttributes } from "react";
 import imageManifest from "./image-manifest.json";
+import { assetUrl } from "./asset-url";
 
 type OptimizedPictureProps = Omit<
   ImgHTMLAttributes<HTMLImageElement>,
@@ -32,11 +33,11 @@ export function OptimizedPicture({
   const hasSmallVariant = smallWebp in imageManifest;
   const fullWidth = dimensions?.width ?? 2560;
   const webpSrcSet = hasSmallVariant
-    ? `${smallWebp} 1280w, ${webpSrc} ${fullWidth}w`
-    : webpSrc;
+    ? `${assetUrl(smallWebp)} 1280w, ${assetUrl(webpSrc)} ${fullWidth}w`
+    : assetUrl(webpSrc);
   const avifSrcSet = hasSmallVariant
-    ? `${smallAvif} 1280w, ${avifSrc} ${fullWidth}w`
-    : avifSrc;
+    ? `${assetUrl(smallAvif)} 1280w, ${assetUrl(avifSrc)} ${fullWidth}w`
+    : assetUrl(avifSrc);
 
   return (
     <picture className="optimized-picture">
@@ -44,7 +45,7 @@ export function OptimizedPicture({
       <source srcSet={webpSrcSet} sizes={sizes} type="image/webp" />
       <img
         {...imageProps}
-        src={webpSrc}
+        src={assetUrl(webpSrc)}
         alt={alt}
         loading={loading}
         decoding={decoding}

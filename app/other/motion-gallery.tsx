@@ -1,4 +1,5 @@
 import { OptimizedPicture } from "@/components/ui/optimized-picture";
+import { assetUrl } from "@/components/ui/asset-url";
 
 const motionImages = Array.from(
   { length: 13 },
@@ -56,7 +57,7 @@ export function MotionGallery() {
           {motionImages.map((src, index) => (
             <figure className="motion-card" key={src}>
               <img
-                src={src}
+                src={assetUrl(src)}
                 alt={`动效作品 ${index + 1}`}
                 draggable={false}
                 loading={index < 2 ? "eager" : "lazy"}
